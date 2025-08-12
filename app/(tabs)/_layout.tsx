@@ -8,6 +8,7 @@ export default function TabLayout() {
 
   return (
     <Tabs
+      initialRouteName="games"
       screenOptions={{
         tabBarActiveTintColor: theme.colors.brand,
         tabBarInactiveTintColor: theme.colors.textMuted,

@@ -11,35 +11,46 @@ A beautiful, production-ready sports trivia app with live picks functionality bu
 - 🎨 Clean, modern design system with consistent theming
 - 📱 Fully responsive and cross-platform (iOS/Android/Web)
 
-## Installation
+## Installation & Running
 
 ```bash
 # Install dependencies
 npm install
 
-# Start the development server
-npm start
+# Start the development server (choose one):
+npm start            # Regular Expo development server
+npm run start:web    # Web development server
+npm run ios          # Run on iOS simulator
+npm run android      # Run on Android simulator/device
+
+# RORK-specific commands (if you're using RORK):
+npm run start:rork       # Start with RORK
+npm run start:rork:web   # Start web version with RORK
 ```
+
+### Development Notes
+
+- This app uses React Native 0.79.x with React 19
+- New Architecture is enabled for Reanimated 4.x compatibility
+- The app can be run using either standard Expo CLI or RORK
 
 ## Project Structure
 
-```
-src/
-├── theme.ts           # Design system tokens
-├── types/             # TypeScript type definitions
-├── ui/                # Reusable UI components
-├── state/             # Zustand store
-├── mock/              # Mock data and runner
-└── providers/         # React context providers
+For detailed project structure information, see [PROJECT_STRUCTURE.md](./PROJECT_STRUCTURE.md)
 
-app/
-├── (tabs)/           # Tab navigation screens
-│   ├── games.tsx     # Home/games list
-│   ├── live.tsx      # Live game details
-│   └── profile.tsx   # User profile
-├── (modals)/         # Modal screens
-│   └── question.tsx  # Question answering modal
-└── _layout.tsx       # Root layout
+```
+five-v3-mvp/
+├── app/              # Expo Router application entry point
+├── src/              # Source code (components, state, etc.)
+│   ├── mock/         # Mock data for development
+│   ├── providers/    # React context providers
+│   ├── state/        # Zustand store
+│   ├── theme/        # Design system tokens
+│   ├── types/        # TypeScript type definitions
+│   ├── ui/           # Reusable UI components
+│   └── utils/        # Utility functions
+├── assets/           # Static assets (images, fonts)
+└── ios/              # Native iOS files
 ```
 
 ## Configuration
