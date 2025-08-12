@@ -4,8 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useTheme } from '@/src/providers/ThemeProvider';
 import { Card } from '@/src/ui/Card';
-import { Badge } from '@/src/ui/Badge';
-import { TeamLogo } from '@/src/ui/TeamLogo';
+import { LiveGameHeaderCard } from '@/src/ui/LiveGameHeaderCard';
 import { CountdownCard } from '@/src/ui/CountdownCard';
 import { SegmentedTabs } from '@/src/ui/SegmentedTabs';
 import { ResultCard } from '@/src/ui/ResultCard';
@@ -78,42 +77,7 @@ export default function LiveScreen() {
     <SafeAreaView style={[styles.container, { backgroundColor: theme.colors.bg }]}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {/* Live Game Header */}
-        <Card style={styles.headerCard}>
-          <View style={styles.statusRow}>
-            <Badge type="error" label="LIVE" />
-            <Text style={[styles.statusText, theme.typography.caption]}>
-              {currentGame.meta}
-            </Text>
-          </View>
-          
-          <View style={styles.teams}>
-            <View style={styles.team}>
-              <TeamLogo team={currentGame.home} size={64} />
-              <Text style={[styles.teamName, theme.typography.body]}>
-                {currentGame.home.name}
-              </Text>
-              {currentGame.homeScore !== undefined && (
-                <Text style={[styles.score, theme.typography.h1]}>
-                  {currentGame.homeScore}
-                </Text>
-              )}
-            </View>
-            
-            <Text style={[styles.vs, theme.typography.caption]}>vs</Text>
-            
-            <View style={styles.team}>
-              <TeamLogo team={currentGame.away} size={64} />
-              <Text style={[styles.teamName, theme.typography.body]}>
-                {currentGame.away.name}
-              </Text>
-              {currentGame.awayScore !== undefined && (
-                <Text style={[styles.score, theme.typography.h1]}>
-                  {currentGame.awayScore}
-                </Text>
-              )}
-            </View>
-          </View>
-        </Card>
+        <LiveGameHeaderCard game={currentGame} />
 
         {/* Countdown */}
         <View style={styles.countdownContainer}>
@@ -171,7 +135,7 @@ export default function LiveScreen() {
                 );
               })}
               {picks.length === 0 && (
-                <Card>
+                <Card style={styles.emptyCard}>
                   <Text style={[theme.typography.body, { textAlign: 'center' }]}>
                     No picks yet. Answer questions to start playing!
                   </Text>
@@ -181,13 +145,13 @@ export default function LiveScreen() {
           )}
           
           {activeTab === 'stats' && (
-            <Card>
+            <Card style={styles.emptyCard}>
               <Text style={theme.typography.body}>Game statistics coming soon</Text>
             </Card>
           )}
           
           {activeTab === 'ranks' && (
-            <Card>
+            <Card style={styles.emptyCard}>
               <Text style={theme.typography.body}>Leaderboard coming soon</Text>
             </Card>
           )}
@@ -207,37 +171,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 32,
   },
-  headerCard: {
-    margin: 16,
-  },
-  statusRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  statusText: {
-    marginLeft: 8,
-  },
-  teams: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  team: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  teamName: {
-    marginTop: 8,
-    textAlign: 'center',
-  },
-  score: {
-    marginTop: 4,
-    fontVariant: ['tabular-nums'],
-  },
-  vs: {
-    marginHorizontal: 16,
-  },
   countdownContainer: {
     paddingHorizontal: 16,
     marginBottom: 16,
@@ -253,5 +186,8 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 16,
     paddingBottom: 32,
+  },
+  emptyCard: {
+    marginBottom: 12,
   },
 });

@@ -29,9 +29,11 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
             key={tab.key}
             style={[
               styles.tab,
-              isActive && {
-                backgroundColor: theme.colors.card,
+              isActive ? {
+                backgroundColor: theme.colors.brand,
+              } : {
                 borderColor: theme.colors.border,
+                borderWidth: 1,
               },
             ]}
             onPress={() => onTabPress(tab.key)}
@@ -41,7 +43,7 @@ export const SegmentedTabs: React.FC<SegmentedTabsProps> = ({
               style={[
                 styles.tabText,
                 {
-                  color: isActive ? theme.colors.textPrimary : theme.colors.textMuted,
+                  color: isActive ? theme.colors.card : theme.colors.textMuted,
                   fontWeight: isActive ? '600' : '500',
                 },
               ]}
@@ -67,8 +69,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     borderRadius: 10,
     alignItems: 'center',
-    borderWidth: 1,
-    borderColor: 'transparent',
   },
   tabText: {
     fontSize: 14,
