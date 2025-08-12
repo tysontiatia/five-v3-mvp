@@ -49,8 +49,8 @@ export const ResultCard: React.FC<ResultCardProps> = ({
     },
     pending: {
       icon: Clock,
-      color: theme.colors.textMuted,
-      bg: theme.colors.bg,
+      color: theme.colors.brand,
+      bg: theme.colors.brandTint,
       label: 'Pending',
     },
   };
@@ -66,25 +66,33 @@ export const ResultCard: React.FC<ResultCardProps> = ({
             <Icon size={20} color={config.color} />
           </View>
           <View style={styles.textContainer}>
+            <Text style={[styles.label, theme.typography.caption]}>Question</Text>
             <Text style={[styles.question, theme.typography.body]} numberOfLines={2}>
               {question}
             </Text>
             {yourPick && (
-              <Text style={[styles.pick, theme.typography.caption]}>
-                Your pick: {yourPick}
-              </Text>
+              <>
+                <Text style={[styles.label, theme.typography.caption, { marginTop: 8 }]}>Your Pick</Text>
+                <Text style={[styles.pick, theme.typography.body]}>
+                  {yourPick}
+                </Text>
+              </>
             )}
             {correctAnswer && state !== 'pending' && (
-              <Text
-                style={[
-                  styles.answer,
-                  {
-                    color: state === 'correct' ? theme.colors.success : theme.colors.error,
-                  },
-                ]}
-              >
-                {state === 'correct' ? '✓' : `Answer: ${correctAnswer}`}
-              </Text>
+              <>
+                <Text style={[styles.label, theme.typography.caption, { marginTop: 8 }]}>Result</Text>
+                <Text
+                  style={[
+                    styles.answer,
+                    theme.typography.body,
+                    {
+                      color: state === 'correct' ? theme.colors.success : theme.colors.error,
+                    },
+                  ]}
+                >
+                  {state === 'correct' ? '✓ Correct' : correctAnswer}
+                </Text>
+              </>
             )}
           </View>
         </View>
@@ -101,7 +109,7 @@ export const ResultCard: React.FC<ResultCardProps> = ({
               {coinDelta > 0 ? '+' : ''}{coinDelta}
             </Text>
           )}
-          {wager && (
+          {wager !== undefined && (
             <Text style={[styles.wager, theme.typography.caption]}>
               Wager: {wager}
             </Text>
@@ -138,11 +146,16 @@ const styles = StyleSheet.create({
   question: {
     marginBottom: 4,
   },
-  pick: {
+  label: {
     marginBottom: 2,
+    textTransform: 'uppercase',
+    fontSize: 11,
+    fontWeight: '600',
+  },
+  pick: {
+    marginBottom: 4,
   },
   answer: {
-    fontSize: 13,
     fontWeight: '600',
   },
   right: {
