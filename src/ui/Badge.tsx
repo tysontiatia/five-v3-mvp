@@ -13,7 +13,7 @@ export const Badge: React.FC<BadgeProps> = ({ type, label }) => {
   const colors = {
     info: { bg: theme.colors.brandTint, text: theme.colors.brand },
     success: { bg: theme.colors.successTint, text: theme.colors.success },
-    warning: { bg: 'rgba(245, 158, 11, 0.12)', text: theme.colors.warning },
+    warning: { bg: theme.colors.warningTint, text: theme.colors.warning },
     error: { bg: theme.colors.errorTint, text: theme.colors.error },
   };
 

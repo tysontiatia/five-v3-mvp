@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { useTheme } from '@/src/providers/ThemeProvider';
+import { useTheme, useThemeController } from '@/src/providers/ThemeProvider';
 import { Team } from '@/src/types';
 
 interface TeamLogoProps {
@@ -13,6 +13,12 @@ export const TeamLogo: React.FC<TeamLogoProps> = ({ team, size = 48, ring = true
   const theme = useTheme();
   const monogram = team.code || team.name.slice(0, 3).toUpperCase();
 
+  // Determine background color based on theme
+  const { isDarkMode } = useThemeController();
+  const backgroundColor = isDarkMode
+    ? theme.colors.card // Use a softer background in dark mode
+    : '#FFFFFF'; // Use white in light mode
+
   return (
     <View
       style={[
@@ -23,6 +29,7 @@ export const TeamLogo: React.FC<TeamLogoProps> = ({ team, size = 48, ring = true
           borderRadius: size / 2,
           borderWidth: ring ? 2 : 0,
           borderColor: theme.colors.border,
+          backgroundColor,
         },
       ]}
     >
@@ -40,7 +47,9 @@ export const TeamLogo: React.FC<TeamLogoProps> = ({ team, size = 48, ring = true
               width: size,
               height: size,
               borderRadius: size / 2,
-              backgroundColor: theme.colors.brandTint,
+              backgroundColor: isDarkMode
+                ? theme.colors.brandTint // This already adapts to the theme
+                : theme.colors.brandTint,
             },
           ]}
         >
@@ -65,7 +74,6 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'white',
   },
   monogram: {
     alignItems: 'center',

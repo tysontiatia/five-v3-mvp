@@ -5,7 +5,8 @@ import { useTheme } from '@/src/providers/ThemeProvider';
 import { Card } from '@/src/ui/Card';
 import { Badge } from '@/src/ui/Badge';
 import { useStore } from '@/src/state/store';
-import { Coins, TrendingUp, Award, Target } from 'lucide-react-native';
+import { Coins, TrendingUp, Award, Target, PaintBucket } from 'lucide-react-native';
+import AppearanceCard from '@/src/ui/AppearanceCard';
 
 export default function ProfileScreen() {
   const theme = useTheme();
@@ -39,7 +40,7 @@ export default function ProfileScreen() {
               Current Streak
             </Text>
           </Card>
-          
+
           <Card style={styles.statCard}>
             <Award size={20} color={theme.colors.warning} />
             <Text style={[styles.statValue, theme.typography.h2]}>{bestStreak}</Text>
@@ -69,6 +70,14 @@ export default function ProfileScreen() {
             <Text style={[theme.typography.body, { fontWeight: '600' }]}>42</Text>
           </View>
         </Card>
+
+        {/* Settings */}
+        <Text style={[styles.settingsHeader, theme.typography.h2, { color: theme.colors.textMuted }]}>
+          Settings
+        </Text>
+
+        {/* Appearance Card */}
+        <AppearanceCard />
 
         {/* Achievements */}
         <Card style={styles.achievementsCard}>
@@ -179,5 +188,10 @@ const styles = StyleSheet.create({
   },
   achievementInfo: {
     flex: 1,
+  },
+  settingsHeader: {
+    marginHorizontal: 16,
+    marginTop: 8,
+    marginBottom: 8,
   },
 });
